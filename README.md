@@ -1,6 +1,6 @@
 ### What's inside?
 
-This repository hosts Code Ready Workspaces assembly that mainly inherits Eclipse Che artifacts and repackages some of them:
+This repository hosts CodeReady Workspaces assembly that mainly inherits Eclipse Che artifacts and repackages some of them:
 
 Differences as compared to upstream:
 
