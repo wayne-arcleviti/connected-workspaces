@@ -23,7 +23,7 @@ includeDashboardFromSource=0
 
 #set version & compute qualifier from best available in Indy
 # or use commandline overrides for version and suffix
-version=6.12.0
+version=6.13.0
 suffix="" # normally we compute this from version of org/eclipse/che/depmgt/maven-depmgt-pom but can override if needed
 upstreamPom=org/eclipse/che/depmgt/maven-depmgt-pom # usually use depmgt/maven-depmgt-pom but can also align to che-parent for codeready-workspaces build
 
@@ -32,8 +32,8 @@ while [[ "$#" -gt 0 ]]; do
   case $1 in
     '-v') version="$2"; shift 1;; #eg., 6.12.0
     '-s') suffix="$2"; shift 1;; # eg., redhat-00007
-    '-dv') includeDashboardVersion="$2"; shift 1;; # eg., 6.11.1 or 6.12.0-SNAPSHOT
-    '-up') upstreamPom="$2"; shift 1;; # eg., 6.11.1 or 6.12.0-SNAPSHOT
+    '-dv') includeDashboardVersion="$2"; shift 1;; # eg., 6.11.1 or 6.13.0-SNAPSHOT
+    '-up') upstreamPom="$2"; shift 1;; # eg., 6.11.1 or 6.13.0-SNAPSHOT
     *) OTHER="${OTHER} $1"; shift 0;; 
   esac
   shift 1
@@ -160,7 +160,7 @@ if [[ $includeDashboardVersion ]]; then
   if [[ ${includeDashboardVersion} == *"-SNAPSHOT" ]]; then snapOrRel="snapshots"; else snapOrRel="releases"; fi # echo $snapOrRel
   wget -q http://oss.sonatype.org/content/repositories/${snapOrRel}/org/eclipse/che/dashboard/che-dashboard-war/${includeDashboardVersion}/maven-metadata.xml -O /tmp/mm.xml
   cheDashboardVersion=$(grep value /tmp/mm.xml | tail -1 | sed -e "s#.*<value>\(.\+\)</value>#\1#" && rm -f /tmp/mm.xml)
-  if [[ ! ${cheDashboardVersion} ]]; then cheDashboardVersion=${includeDashboardVersion}; fi # fallback to 6.12.0-SNAPSHOT if not resolved
+  if [[ ! ${cheDashboardVersion} ]]; then cheDashboardVersion=${includeDashboardVersion}; fi # fallback to 6.13.0-SNAPSHOT if not resolved
   MVNFLAGS="${MVNFLAGS} -Dche.dashboard.version=${cheDashboardVersion}"
 fi
 
