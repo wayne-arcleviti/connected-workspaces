@@ -24,5 +24,6 @@
       <module>assembly-dashboard-war</module>
       <module>assembly-wsmaster-war</module>
       <module>assembly-main</module>
+      <module>assembly-node-modules</module>
   </modules>
 </project>
