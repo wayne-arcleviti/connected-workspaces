@@ -27,6 +27,15 @@
     <artifactId>codeready-workspaces-node-stack-node-modules</artifactId>
     <packaging>pom</packaging>
     <name>CodeReady Workspaces - Node Stack - Node Modules</name>
+    <!--
+    # to do this build via shell instead of maven:
+    CHE_VERSION=6.13.0-SNAPSHOT
+    TYPESCRIPT_LS_VERSION=0.1.12
+    TYPERSCRIPT_VERSION=2.8.4
+    rm -fr /tmp/usr/lib/node_modules && mkdir -p /tmp/usr/lib && cd /tmp/
+    npm install -\-prefix /tmp/usr/lib typescript@${TYPERSCRIPT_VERSION} typescript-language-server@${TYPESCRIPT_LS_VERSION}
+    tar czf codeready-workspaces-node-stack-node-modules-${CHE_VERSION}.tar.gz usr/lib/node_modules
+    -->
     <properties>
         <TYPERSCRIPT_VERSION>2.8.4</TYPERSCRIPT_VERSION>
         <TYPESCRIPT_LS_VERSION>0.1.12</TYPESCRIPT_LS_VERSION>
