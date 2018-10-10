@@ -21,7 +21,7 @@
     </parent>
     <artifactId>codeready-workspaces-node-stack-node-modules</artifactId>
     <packaging>pom</packaging>
-    <name>CodeReady Workspaces - Node Stack - Node Modules</name>
+    <name>CodeReady Workspaces :: Node Stack :: Node Modules</name>
     <!--
     # to do this build via shell instead of maven:
     CHE_VERSION=6.13.0-SNAPSHOT
