@@ -145,7 +145,7 @@ fi
 # configure maven build 
 ##########################################################################################
 
-if [[ ! ${PROFILES} ]]; then PROFILES=' -Pfast,native,!docker,!docs'
+if [[ ! ${PROFILES} ]]; then PROFILES=' -Pfast,native,!docker,!docs'; fi
 
 MVNFLAGS="${MVNFLAGS} -V -ff -B -e -Dskip-enforce -DskipTests -Dskip-validate-sources -Dfindbugs.skip -DskipIntegrationTests=true"
 MVNFLAGS="${MVNFLAGS} -Dmdep.analyze.skip=true -Dmaven.javadoc.skip -Dgpg.skip -Dorg.slf4j.simpleLogger.showDateTime=true"
