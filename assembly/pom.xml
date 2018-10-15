@@ -24,6 +24,18 @@
       <module>assembly-dashboard-war</module>
       <module>assembly-wsmaster-war</module>
       <module>assembly-main</module>
-      <module>assembly-node-modules</module>
   </modules>
+
+<!-- 
+  This is not part of the main CodeReady Workspaces - Che Server assembly, but we need it for the downstream Node Stack
+  Make it an optional part of the build so we can build it in NCL, but not when building this assembly locally -->
+  <profiles>
+    <profile>
+      <id>node-modules</id>
+      <modules>
+        <module>assembly-node-modules</module>
+      </modules>
+    </profile>
+  </profiles>
+
 </project>

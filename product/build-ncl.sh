@@ -143,7 +143,7 @@ fi
 # configure maven build 
 ##########################################################################################
 
-PROFILES='-Pfast,native,!docker,!docs'
+PROFILES='-Pfast,native,!docker,!docs,node-modules'
 
 MVNFLAGS="-V -ff -B -e -Dskip-enforce -DskipTests -Dskip-validate-sources -Dfindbugs.skip -DskipIntegrationTests=true"
 MVNFLAGS="${MVNFLAGS} -Dmdep.analyze.skip=true -Dmaven.javadoc.skip -Dgpg.skip -Dorg.slf4j.simpleLogger.showDateTime=true"
