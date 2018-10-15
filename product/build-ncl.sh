@@ -34,6 +34,8 @@ while [[ "$#" -gt 0 ]]; do
     '-s') suffix="$2"; shift 1;; # eg., redhat-00007
     '-dv') includeDashboardVersion="$2"; shift 1;; # eg., 6.11.1 or 6.13.0-SNAPSHOT
     '-up') upstreamPom="$2"; shift 1;; # eg., 6.11.1 or 6.13.0-SNAPSHOT
+    '-PROFILES') PROFILES="$2"; shift 1;; # override default profiles
+    '-MVNFLAGS') MVNFLAGS="$2"; shift 1;; # add more mvn flags
     *) OTHER="${OTHER} $1"; shift 0;; 
   esac
   shift 1
@@ -143,9 +145,9 @@ fi
 # configure maven build 
 ##########################################################################################
 
-PROFILES='-Pfast,native,!docker,!docs,node-modules'
+if [[ ! ${PROFILES} ]]; then PROFILES=' -Pfast,native,!docker,!docs'
 
-MVNFLAGS="-V -ff -B -e -Dskip-enforce -DskipTests -Dskip-validate-sources -Dfindbugs.skip -DskipIntegrationTests=true"
+MVNFLAGS="${MVNFLAGS} -V -ff -B -e -Dskip-enforce -DskipTests -Dskip-validate-sources -Dfindbugs.skip -DskipIntegrationTests=true"
 MVNFLAGS="${MVNFLAGS} -Dmdep.analyze.skip=true -Dmaven.javadoc.skip -Dgpg.skip -Dorg.slf4j.simpleLogger.showDateTime=true"
 MVNFLAGS="${MVNFLAGS} -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss "
 MVNFLAGS="${MVNFLAGS} -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
