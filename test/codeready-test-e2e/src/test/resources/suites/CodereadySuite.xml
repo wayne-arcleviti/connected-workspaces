@@ -22,8 +22,10 @@
             <!-- CodeReady Workspaces specific tests -->
             <class name="com.redhat.codeready.selenium.userstory.JavaUserStoryTest"/>
             <class name="com.redhat.codeready.selenium.userstory.NodeJsUserStoryTest"/>
+            <class name="com.redhat.codeready.selenium.userstory.PythonUserStoryTest"/>
+            <class name="com.redhat.codeready.selenium.userstory.GoUserStoryTest"/>
 
-            <!-- Ecliipse Che tests -->
+            <!-- Eclipse Che tests -->
             <class name="org.eclipse.che.selenium.assistant.CheckFindActionFeatureInCheTest"/>
             <class name="org.eclipse.che.selenium.assistant.KeyBindingsTest"/>
             <class name="org.eclipse.che.selenium.assistant.OrganizeImportsTest"/>
@@ -253,6 +255,7 @@
             <class name="org.eclipse.che.selenium.refactor.types.TestFailTest"/>
             <class name="org.eclipse.che.selenium.swagger.SwaggerTest"/>
             <class name="org.eclipse.che.selenium.theia.TheiaBuildPluginTest"/>
+            <class name="org.eclipse.che.selenium.theia.Che7PreviewStackStartTest"/>
             <class name="org.eclipse.che.selenium.workspaces.CheckStopStartWsTest"/>
             <class name="org.eclipse.che.selenium.workspaces.CreateWorkspaceOnDashboardTest"/>
             <class name="org.eclipse.che.selenium.workspaces.ProjectStateAfterRefreshTest"/>
