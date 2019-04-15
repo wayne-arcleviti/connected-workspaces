@@ -54,6 +54,7 @@
                                 <crw.sso.host>${crw.sso.host}</crw.sso.host>
                                 <crw.port>${crw.port}</crw.port>
                                 <crw.loopCount>${crw.loopCount}</crw.loopCount>
+                                <wsLoadTimeout>${wsLoadTimeout}</wsLoadTimeout>
                             </propertiesUser>
                             <ignoreResultFailures>true</ignoreResultFailures>
                             <testFilesIncluded>

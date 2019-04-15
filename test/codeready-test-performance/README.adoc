@@ -10,6 +10,7 @@
 -Dcrw.port=CRW_PORT \
 -Dtest.threads=NUM_OD_THREADS(virtualusers)
 -DjmeterScript=FILE_NAME_OF_TEST
+-DwsLoadTimeout=MAX_TIMEOUT_FOR_WAITING_WS
 ```
 For instance we have CRW which launched on the next address: http://codeready-codeready-default.apps.iokhrime-ocp.crew
 and keycloak has been deployed here: http://keycloak-codeready-default.apps.iokhrime-ocp.crew. I this case -  we have next command:

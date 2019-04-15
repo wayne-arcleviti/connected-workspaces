@@ -13,6 +13,11 @@
             <stringProp name="Argument.value">dummy_token</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="THRESHOLD_ATTEMPTS" elementType="Argument">
+            <stringProp name="Argument.name">THRESHOLD_ATTEMPTS</stringProp>
+            <stringProp name="Argument.value">${__P(wsLoadTimeout,120)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="crw.host" elementType="Argument">
             <stringProp name="Argument.name">crw.host</stringProp>
             <stringProp name="Argument.value">${__P(crw.host,localhost )}</stringProp>
@@ -20,7 +25,7 @@
           </elementProp>
           <elementProp name="crw.sso.host" elementType="Argument">
             <stringProp name="Argument.name">crw.sso.host</stringProp>
-            <stringProp name="Argument.value">${__P(crw.sso.host,localhost}</stringProp>
+            <stringProp name="Argument.value">${__P(crw.sso.host,localhost)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="crw.protocol" elementType="Argument">
@@ -48,6 +53,11 @@
             <stringProp name="Argument.value">${__P(git.url,https://github.com/che-samples/web-java-spring.git)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="WORKSPACE_NAME" elementType="Argument">
+            <stringProp name="Argument.name">WORKSPACE_NAME</stringProp>
+            <stringProp name="Argument.value">user-workspace</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
@@ -66,26 +76,6 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User_Defined_Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="WORKSPACE_NAME" elementType="Argument">
-              <stringProp name="Argument.name">WORKSPACE_NAME</stringProp>
-              <stringProp name="Argument.value">user-workspace</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="THRESHOLD_ATTEMPTS" elementType="Argument">
-              <stringProp name="Argument.name">THRESHOLD_ATTEMPTS</stringProp>
-              <stringProp name="Argument.value">180</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="MAX_ATTEMTS_FINISH_BUILD_WATING" elementType="Argument">
-              <stringProp name="Argument.name">MAX_ATTEMTS_FINISH_BUILD_WATING</stringProp>
-              <stringProp name="Argument.value">120</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
         <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="user_counter" enabled="true">
           <stringProp name="CounterConfig.start">1</stringProp>
           <stringProp name="CounterConfig.end"></stringProp>
