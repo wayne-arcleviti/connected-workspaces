@@ -43,24 +43,24 @@
             <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="crw.loopCount" elementType="Argument">
-            <stringProp name="Argument.name">crw.loopCount</stringProp>
-            <stringProp name="Argument.value">1</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="WORKSPACE_NAME" elementType="Argument">
             <stringProp name="Argument.name">WORKSPACE_NAME</stringProp>
             <stringProp name="Argument.value">user-workspace</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="THRESHOLD_ATTEMPTS" elementType="Argument">
-            <stringProp name="Argument.name">THRESHOLD_ATTEMPTS</stringProp>
-            <stringProp name="Argument.value">60</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="MAX_ATTEMTS_FINISH_BUILD_WATING" elementType="Argument">
             <stringProp name="Argument.name">MAX_ATTEMTS_FINISH_BUILD_WATING</stringProp>
-            <stringProp name="Argument.value">10</stringProp>
+            <stringProp name="Argument.value">${__P(maxAttemptsOfWaitBuilding,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="THRESHOLD_ATTEMPTS" elementType="Argument">
+            <stringProp name="Argument.name">THRESHOLD_ATTEMPTS</stringProp>
+            <stringProp name="Argument.value">${__P(wsLoadTimeout,180)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="crw.loopCount" elementType="Argument">
+            <stringProp name="Argument.name">crw.loopCount</stringProp>
+            <stringProp name="Argument.value">${__P(crw.loopCount,1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -74,19 +74,13 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">${crw.loopCount}</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">18</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${test.threads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
-          <collectionProp name="DNSCacheManager.servers"/>
-          <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
-          <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
-        </DNSCacheManager>
-        <hashTree/>
         <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="user_counter" enabled="true">
           <stringProp name="CounterConfig.start">1</stringProp>
           <stringProp name="CounterConfig.end"></stringProp>
@@ -95,6 +89,23 @@
           <stringProp name="CounterConfig.format"></stringProp>
           <boolProp name="CounterConfig.per_user">false</boolProp>
         </CounterConfig>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="printer" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">false</stringProp>
+          <stringProp name="script">String maxBuildingAttempt = vars.get(&apos;MAX_ATTEMTS_FINISH_BUILD_WATING&apos;);
+String looptCount = vars.get(&apos;crw.loopCount&apos;);
+String treshold = vars.get(&apos;THRESHOLD_ATTEMPTS&apos;); 
+String threads = vars.get(&apos;test.threads&apos;); 
+
+System.out.println(&apos;loopCount&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&apos;+looptCount);
+System.out.println(&apos;maxBuildingAttempt&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&apos; + maxBuildingAttempt);
+System.out.println(&apos;treshold&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&apos; + treshold);
+System.out.println(&apos;threads&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&apos; + threads);
+</stringProp>
+        </JSR223Sampler>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="get_admin_token_thread_${__threadNum}" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -673,8 +684,8 @@ AssertionResult.setFailureMessage(&quot;the expected workspace status has been n
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="upload_content_che_ws_${__threadNum}" enabled="true">
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="/home/mmusiien/che-projects/codeready-workspaces/test/codeready-test-performance/src/test/jmeter/default-spring-project.zip" elementType="HTTPFileArg">
-                <stringProp name="File.path">/home/mmusiien/che-projects/codeready-workspaces/test/codeready-test-performance/src/test/jmeter/default-spring-project.zip</stringProp>
+              <elementProp name="${CONFIG_PATH}/../testFiles/default-spring-project.zip" elementType="HTTPFileArg">
+                <stringProp name="File.path">${CONFIG_PATH}/../testFiles/default-spring-project.zip</stringProp>
                 <stringProp name="File.paramname"></stringProp>
                 <stringProp name="File.mimetype"></stringProp>
               </elementProp>

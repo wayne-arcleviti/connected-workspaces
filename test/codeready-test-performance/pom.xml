@@ -55,6 +55,7 @@
                                 <crw.port>${crw.port}</crw.port>
                                 <crw.loopCount>${crw.loopCount}</crw.loopCount>
                                 <wsLoadTimeout>${wsLoadTimeout}</wsLoadTimeout>
+                                <maxAttemptsOfWaitBuilding>${maxAttemptsOfWaitBuilding}</maxAttemptsOfWaitBuilding>
                             </propertiesUser>
                             <ignoreResultFailures>true</ignoreResultFailures>
                             <testFilesIncluded>

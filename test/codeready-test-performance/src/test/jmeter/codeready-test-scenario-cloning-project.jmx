@@ -15,7 +15,7 @@
           </elementProp>
           <elementProp name="THRESHOLD_ATTEMPTS" elementType="Argument">
             <stringProp name="Argument.name">THRESHOLD_ATTEMPTS</stringProp>
-            <stringProp name="Argument.value">${__P(wsLoadTimeout,120)}</stringProp>
+            <stringProp name="Argument.value">${__P(wsLoadTimeout,180)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="crw.host" elementType="Argument">
@@ -45,7 +45,7 @@
           </elementProp>
           <elementProp name="crw.loopCount" elementType="Argument">
             <stringProp name="Argument.name">crw.loopCount</stringProp>
-            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.value">${__P(crw.loopCount,1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="git.url" elementType="Argument">
