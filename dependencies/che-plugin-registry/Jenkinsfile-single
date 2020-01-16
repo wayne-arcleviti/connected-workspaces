@@ -149,7 +149,7 @@ timeout(120) {
         } else if (extensionPath.contains("https://github.com/llvm/llvm-project")) {
             buildClangVscode(extensionFolder)
         } else if (extensionPath.contains("https://github.com/microsoft/vscode-java-debug")) {
-            buildJavaExtension(extensionFolder, extensionFolder)
+            buildJavaExtension(branchToBuildPlugin, extensionFolder)
         }  else if (extensionPath.contains("https://github.com/felixfbecker/vscode-php-debug")) {
             buildPhpDebug(branchToBuildPlugin, extensionFolder)
         } else {
@@ -177,9 +177,8 @@ timeout(120) {
 
         archiveArtifacts artifacts: '*.vsix, *-sources.tar.gz', fingerprint: true
 
+        input (message: "proceed with publish?")
 
-        // that would be built by this job
-        //
         if (publishDestinationAddress && publishDestinationDir ) {
             echo "beginning publishing process"
             sh "mkdir --parents /tmp/${publishDestinationDir} && find ./ -name '*.vsix' -exec mv {}  /tmp/${publishDestinationDir}  \\;"
