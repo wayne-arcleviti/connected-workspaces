@@ -167,17 +167,21 @@ for d in $(find ${WORKDIR} -maxdepth ${maxdepth} -name ${DOCKERFILE} | sort); do
 									PUSH_TRY="$(git push origin "${BRANCHUSED}" 2>&1 || true)"
 								fi
 								if [[ ${doPR} -eq 1 ]] || [[ ${BRANCHUSED} == "master" ]] || [[ $PUSH_TRY == *"protected branch hook declined"* ]]; then
-									if [[ -x /usr/local/bin/hub ]]; then 
-										PR_BRANCH=pr-Dockefile-to-${LATESTTAG}
+									if [[ -x /usr/local/bin/hub ]]; then
+										GITUSER=$(git config user.name)
+										hub fork || true
+										git push -u "${GITUSER}" HEAD
+										PR_BRANCH="pr-Dockefile-to-${LATESTTAG}"
 										if [[ $VERBOSE -eq 1 ]]; then echo "[DEBUG] PR branch: ${PR_BRANCH}"; fi
 										# create pull request for master branch, as branch is restricted
 										git branch "${PR_BRANCH}"
 										git checkout "${PR_BRANCH}"
-										git push origin "${PR_BRANCH}"
+										git pull --rebase origin ${BRANCHUSED}
+										git push "${GITUSER}" "${PR_BRANCH}"
 										lastCommitComment="$(git log -1 --pretty=%B)"
 										hub pull-request -o -f -m "${lastCommitComment}
 
-${lastCommitComment}" -b "${BRANCH}" -h "${PR_BRANCH}"
+${lastCommitComment}" -b "${BRANCHUSED}" -h "${GITUSER}:${PR_BRANCH}"
 									else
 										echo "To generate a pull request, this script requires hub. Please install it. Details: https://hub.github.com/"
 									fi
