@@ -42,6 +42,13 @@ while [[ "$#" -gt 0 ]]; do
   shift 1
 done
 
+if [[ $doPR -eq 1 ]]; then
+	if [[ ! -x /usr/local/bin/hub ]]; then 
+		echo "This script requires hub. Please install it. Details: https://hub.github.com/"
+		exit 1
+	fi
+fi
+
 # as seen on https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
 vercomp () {
     if [[ $1 == $2 ]]
@@ -157,20 +164,24 @@ for d in $(find ${WORKDIR} -maxdepth ${maxdepth} -name ${DOCKERFILE} | sort); do
 								if [[ $VERBOSE -eq 1 ]]; then echo "[DEBUG] git commit comment: ${lastCommitComment}"; fi
 								PUSH_TRY=""
 								if [[ ${BRANCHUSED} != "master" ]] && [[ ${doPR} -eq 0 ]]; then 
-									PUSH_TRY="$(git push origin "${BRANCHUSED}" 2>&1)"
+									PUSH_TRY="$(git push origin "${BRANCHUSED}" 2>&1 || true)"
 								fi
 								if [[ ${doPR} -eq 1 ]] || [[ ${BRANCHUSED} == "master" ]] || [[ $PUSH_TRY == *"protected branch hook declined"* ]]; then
-									PR_BRANCH=pr-Dockefile-to-${LATESTTAG}
-									if [[ $VERBOSE -eq 1 ]]; then echo "[DEBUG] PR branch: ${PR_BRANCH}"; fi
-									# create pull request for master branch, as branch is restricted
-									git branch "${PR_BRANCH}"
-									git checkout "${PR_BRANCH}"
-									git push origin "${PR_BRANCH}"
-									lastCommitComment="$(git log -1 --pretty=%B)"
-									hub pull-request -o -f -m "${lastCommitComment}
+									if [[ -x /usr/local/bin/hub ]]; then 
+										PR_BRANCH=pr-Dockefile-to-${LATESTTAG}
+										if [[ $VERBOSE -eq 1 ]]; then echo "[DEBUG] PR branch: ${PR_BRANCH}"; fi
+										# create pull request for master branch, as branch is restricted
+										git branch "${PR_BRANCH}"
+										git checkout "${PR_BRANCH}"
+										git push origin "${PR_BRANCH}"
+										lastCommitComment="$(git log -1 --pretty=%B)"
+										hub pull-request -o -f -m "${lastCommitComment}
 
 ${lastCommitComment}" -b "${BRANCH}" -h "${PR_BRANCH}"
-								fi 
+									else
+										echo "To generate a pull request, this script requires hub. Please install it. Details: https://hub.github.com/"
+									fi
+								fi
 							fi
 							if [[ ${buildCommand} != "echo" ]] || [[ $VERBOSE -eq 1 ]]; then echo "# ${buildCommand}"; fi
 							${buildCommand} &
