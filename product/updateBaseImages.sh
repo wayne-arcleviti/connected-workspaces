@@ -6,12 +6,12 @@
 # https://registry.redhat.io is v2 and requires authentication to query, so login in first like this:
 # docker login registry.redhat.io -u=USERNAME -p=PASSWORD
 
-if [[ ! -x /usr/bin/skopeo ]]; then 
+if [[ ! -x $(which skopeo) ]]; then 
 	echo "This script requires skopeo. Please install it."
 	exit 1
 fi
 
-if [[ ! -x /usr/bin/jq ]]; then 
+if [[ ! -x $(which jq) ]]; then 
 	echo "This script requires jq. Please install it."
 	exit 1
 fi
@@ -43,7 +43,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 if [[ $doPR -eq 1 ]]; then
-	if [[ ! -x /usr/local/bin/hub ]]; then 
+	if [[ ! -x $(which hub) ]]; then 
 		echo "This script requires hub. Please install it. Details: https://hub.github.com/"
 		exit 1
 	fi
@@ -167,7 +167,7 @@ for d in $(find ${WORKDIR} -maxdepth ${maxdepth} -name ${DOCKERFILE} | sort); do
 									PUSH_TRY="$(git push origin "${BRANCHUSED}" 2>&1 || true)"
 								fi
 								if [[ ${doPR} -eq 1 ]] || [[ ${BRANCHUSED} == "master" ]] || [[ $PUSH_TRY == *"protected branch hook declined"* ]]; then
-									if [[ -x /usr/local/bin/hub ]]; then
+									if [[ -x $(which hub) ]]; then 
 										GITUSER=$(git config user.name)
 										hub fork || true
 										git push -u "${GITUSER}" HEAD
