@@ -73,6 +73,15 @@ def buildPhpDebug(branchToBuildPlugin, extensionFolder) {
     sh "cd ${extensionFolder} && sudo npm install -g vsce gulp && npm install && npm run build && vsce package"
 }
 
+def buildVscodePython(branchToBuildPlugin, extensionFolder) {
+    buildNumber = branchToBuildPlugin.substring(branchToBuildPlugin.lastIndexOf('.'))
+    echo $buildNumber
+    sh "cd ${extensionFolder} && sudo npm install -g vsce gulp && npm ci && gulp updateBuildNumber --buildNumber ${buildNumber} && rm -rf node_modules"
+    archiveSources(extensionFolder)
+    installNPM()
+    sh "cd ${extensionFolder} && npm ci && gulp installPythonLibs && gulp prePublishBundle && vsce package"
+}
+
 def buildDefault(extensionFolder) {
     archiveSources(extensionFolder)
     installNPM()
