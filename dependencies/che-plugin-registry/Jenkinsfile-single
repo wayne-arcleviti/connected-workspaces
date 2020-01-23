@@ -157,6 +157,8 @@ timeout(120) {
             buildEclipseCdt(extensionFolder)
         } else if (extensionPath.contains("https://github.com/llvm/llvm-project")) {
             buildClangVscode(extensionFolder)
+        } else if (extensionPath.contains("https://github.com/microsoft/vscode-python")) {
+            buildVscodePython(branchToBuildPlugin, extensionFolder)
         } else if (extensionPath.contains("https://github.com/microsoft/vscode-java-debug")) {
             buildJavaExtension(branchToBuildPlugin, extensionFolder)
         }  else if (extensionPath.contains("https://github.com/felixfbecker/vscode-php-debug")) {
